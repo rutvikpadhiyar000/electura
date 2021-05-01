@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <form method='POST'>
+      {% csrf_token %}
+      <h2>Post Your opinion here: </h2>
+      <input type='text' name='comment'>
+      <input type="submit" value="Post">
+    </form>
+    {% for i in opinion %}
+      <h3>{{i.posted_by}}</h3><br>
+      <h4>{{i.comment}}</h4><br>
+      <h4>{{i.posted_on}}</h4><br>
+    {% endfor %}
+    {% else %}
+      <p>You are not logged in</p>
+      <a href="{% url 'login' %}">login</a>
+    {% endif %}
+{% endblock %}
